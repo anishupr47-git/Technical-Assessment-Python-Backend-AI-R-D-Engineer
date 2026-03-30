@@ -15,6 +15,7 @@ Main work done in this project:
 - Expose unified APIs for customers and activities.
 - Support filtering on `/activities` by `source` and `type`.
 - Add optional AI activity metadata (`ai_summary`, `ai_category`, `ai_priority`).
+- I have also added simple comments in the code to explain what each part is doing.
 
 ### Why sync still works if AI fails or key is missing
 AI is treated as an optional enrichment step, not a required step.
