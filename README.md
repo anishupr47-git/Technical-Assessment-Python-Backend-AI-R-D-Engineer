@@ -14,6 +14,7 @@ Main work done in this project:
 - Protect against duplicates using unique constraints and create checks.
 - Expose unified APIs for customers and activities.
 - Support filtering on `/activities` by `source` and `type`.
+- Use Gemini API during sync to classify each activity into `summary`, `category`, and `priority`.
 - Add optional AI activity metadata (`ai_summary`, `ai_category`, `ai_priority`).
 - I have also added simple comments in the code to explain what each part is doing.
 
@@ -24,6 +25,18 @@ AI is treated as an optional enrichment step, not a required step.
 - If Gemini request fails (timeout, network, API error), the app catches the error.
 - The activity is still saved without AI fields.
 - This design keeps `/sync` reliable and prevents partial system failure.
+
+## Gemini API usage
+Gemini API is used in this project to classify new activities during `/sync`.
+
+What Gemini does in this project:
+- Reads ticket `title` and `content`.
+- Returns a short `summary`.
+- Returns `category` (like billing, account, technical).
+- Returns `priority` (low, medium, high).
+- Saves these values into `ai_summary`, `ai_category`, and `ai_priority`.
+
+If Gemini key is missing or Gemini call fails, sync still continues and activity is saved without AI fields.
 
 ## Tech stack
 - FastAPI
